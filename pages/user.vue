@@ -5,10 +5,12 @@
       <NuxtLink to="/">Click hier om naar de Log in pagina te gaan.</NuxtLink>
     </section>
     <section v-else>
-      <h1>User!</h1>
-      <p>User: {{user.name}}</p>
-      <p>E-mail: {{user.email}}</p>
-      <p>Telefoon: {{user.phone}}</p>
+      <h1 class="heading">Gebruikersinformatie</h1>
+      <section class="info">
+        <p>Naam: {{user.name}}</p>
+        <p>E-mail: {{user.email}}</p>
+        <p>Telefoon: {{user.phone}}</p>
+      </section>
       <button class="button" @click="logOut">Log out</button>
     </section>
   </div>
@@ -31,5 +33,15 @@
   .container {
     max-width: 420px;
     margin: 0 auto;
+    padding: $xl; 
+  }
+  .heading {
+    margin-bottom: $l;
+  }
+  p {
+    margin-bottom: $m;
+  }
+  .info {
+    margin-bottom: $l;
   }
 </style>
