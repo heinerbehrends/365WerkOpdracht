@@ -12,16 +12,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .button {
-    color: white;
-    background-color: $button-color;
-    padding: $xs $s;
-    border: none;
-    border-radius: $xxs;
-  }
-  button:disabled {
-    background-color: gray;
-  }
-</style>

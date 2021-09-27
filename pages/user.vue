@@ -32,11 +32,4 @@
     max-width: 420px;
     margin: 0 auto;
   }
-  .button {
-    color: white;
-    background-color: $button-color;
-    padding: $xs $s;
-    border: none;
-    border-radius: $xxs;
-  }
 </style>
