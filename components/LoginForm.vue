@@ -6,6 +6,11 @@
     </p>
     <label class="column label">
       E-mailadres 
+      <p v-if="!isValidEmail && isTouched.email" 
+        class="error-msg" 
+      >
+        Vul een geldig e-mail adres in.
+      </p>
       <input
         v-model="form.email"
         class="input"
@@ -14,10 +19,18 @@
         type="email"
         aria-label="e-mailadres"
         aria-required="true" 
+        @blur="isTouched.email = true"
       >
     </label>
     <label class="column label">
       Wachtwoord
+      <p 
+        v-if="!isValidPassword && isTouched.password" 
+        class="error-msg" 
+      >
+        Het wachtwoord moet minimaal 6 letters lang zijn.
+      </p>
+
       <input
         v-model="form.password"
         class="input"
@@ -26,6 +39,7 @@
         type="password"
         aria-label="wachtwoord"
         aria-required="true" 
+        @blur="isTouched.password = true"
       >
     </label>
     <Button text="Log in" :disabled="isPending" />
@@ -44,13 +58,25 @@ export default {
         email: null,
         password: null,
       },
+      isTouched: {
+        email: false,
+        password: false,
+      }
     }
   },
   computed: {
     ...mapState({
       isPending: state => state.isPending,
       error: state => state.error,
-    })
+    }),
+    isValidEmail() {
+      const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return regex.test(this.form.email?.toLowerCase())
+    },
+    isValidPassword() {
+      if (this.form.password === null) return false
+      return this.form.password.length > 5
+    }
   },
   methods: {
     ...mapActions(['submitForm']),
@@ -85,5 +111,8 @@ export default {
     border: 1px solid red;
     background-color: #fcc9c9;
     border-radius: 0.5rem;
+  }
+  .error-msg {
+    color: red;
   }
 </style>
