@@ -42,6 +42,7 @@ export const actions = {
       })
       .catch((error) => console.error(error))
     if (typeof response === 'undefined') return
+    commit('error', null)
     commit('init', response)
     this.$router.push({ name: 'user' })
   },
