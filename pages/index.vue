@@ -11,9 +11,10 @@ export default {}
 
 <style lang="scss" scoped>
   .logo {
-    width: 320px;
+    width: 240px;
     margin: 0 auto;
     display: block;
-    padding: $xl
+    padding-top: $xl;
+    padding-bottom: $l;
   }
 </style>
