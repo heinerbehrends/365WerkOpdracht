@@ -4,8 +4,8 @@
     <p v-if="error === 401" class="error">
       De combinatie van e-mailadres en wachtwoord is niet geldig. 
     </p>
-    <label class="column label">
-      E-mailadres 
+    <label class="column">
+      <p class="label">E-mailadres </p>
       <p v-if="!isValidEmail && isTouched.email" 
         class="error-msg" 
       >
@@ -22,8 +22,8 @@
         @blur="isTouched.email = true"
       >
     </label>
-    <label class="column label">
-      Wachtwoord
+    <label class="column">
+      <p class="label">Wachtwoord</p>
       <p 
         v-if="!isValidPassword && isTouched.password" 
         class="error-msg" 
@@ -96,18 +96,19 @@ export default {
   .form {
     max-width: 420px;
     border: 1px gray solid;
-    padding: $xl;
+    padding: $l;
     margin: 0 auto;
   }
   .heading {
     text-align: center;
+    margin-bottom: $m;
   }
   .label {
-    margin-bottom: $l;
+    margin-bottom: $xxs;
   }
   .input {
     padding: $xs $s;
-    margin-top: $xxs;
+    margin-bottom: $l;
   }
   .error {
     padding: $xs $s;
@@ -117,5 +118,6 @@ export default {
   }
   .error-msg {
     color: $error-color;
+    margin-bottom: $xxs;
   }
 </style>
