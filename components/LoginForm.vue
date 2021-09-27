@@ -42,7 +42,7 @@
         @blur="isTouched.password = true"
       >
     </label>
-    <Button text="Log in" :disabled="isPending" />
+    <Button text="Log in" :disabled="isPending || !isValidForm" />
   </form>
 </template>
 
@@ -76,6 +76,9 @@ export default {
     isValidPassword() {
       if (this.form.password === null) return false
       return this.form.password.length > 5
+    },
+    isValidForm() {
+      return this.isValidEmail && this.isValidPassword
     }
   },
   methods: {
