@@ -16,10 +16,10 @@ export default {
 <style lang="scss" scoped>
   .button {
     color: white;
-    background-color: blue;
-    padding: 0.5rem 0.75rem;
+    background-color: $button-color;
+    padding: $xs $s;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: $xxs;
   }
   button:disabled {
     background-color: gray;

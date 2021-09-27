@@ -96,26 +96,26 @@ export default {
   .form {
     max-width: 420px;
     border: 1px gray solid;
-    padding: 4rem;
+    padding: $xl;
     margin: 0 auto;
   }
   .heading {
     text-align: center;
   }
   .label {
-    margin-bottom: 2rem;
+    margin-bottom: $l;
   }
   .input {
-    padding: 0.5rem 0.75rem;
-    margin-top: 0.25rem;
+    padding: $xs $s;
+    margin-top: $xxs;
   }
   .error {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid red;
+    padding: $xs $s;
+    border: 1px solid $error-color;
     background-color: #fcc9c9;
-    border-radius: 0.5rem;
+    border-radius: $xs;
   }
   .error-msg {
-    color: red;
+    color: $error-color;
   }
 </style>

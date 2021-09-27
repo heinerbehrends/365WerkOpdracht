@@ -16,9 +16,8 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import { Button } from '../components/Button.vue'
+
   export default {
-    components: [Button],
     computed: {
       ...mapState({ user: state => state.user })
     },
@@ -35,9 +34,9 @@
   }
   .button {
     color: white;
-    background-color: blue;
-    padding: 0.5rem 0.75rem;
+    background-color: $button-color;
+    padding: $xs $s;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: $xxs;
   }
 </style>
