@@ -21,4 +21,7 @@ export default {
     border: none;
     border-radius: 0.25rem;
   }
+  button:disabled {
+    background-color: gray;
+  }
 </style>
