@@ -2,9 +2,9 @@
   <form class="form" @submit.prevent="submitForm(form)">
     <h1 class="heading">Log in</h1>
     <p v-if="error === '401'" class="error">
-      De combinatie van e-mailadres en wachtwoord is niet geldig. 
+      De combinatie van e-mailadres en wachtwoord is niet geldig.
     </p>
-    <Input 
+    <Input
       v-model="form.email"
       name="email"
       type="email"
@@ -24,9 +24,11 @@
       aria-errormessage="Het wachtwoord moet minimaal 6 letters lang zijn."
       @blurred="isTouched.password = true"
     />
-    <Button 
-      text="Log in" 
-      :disabled="isPending || (!isValidForm && isTouched.email && isTouched.password)"
+    <Button
+      text="Log in"
+      :disabled="
+        isPending || (!isValidForm && isTouched.email && isTouched.password)
+      "
     />
   </form>
 </template>
@@ -38,18 +40,18 @@ import Input from './Input.vue'
 
 export default {
   components: { Button, Input },
-  data() { 
+  data() {
     return {
       form: {
-        email: "",
-        password: "",
+        email: '',
+        password: ''
       },
       isTouched: {
         email: false,
-        password: false,
+        password: false
       },
       isPending: false,
-      error: null,
+      error: null
     }
   },
   computed: {
@@ -63,7 +65,7 @@ export default {
     },
     isValidForm() {
       return this.isValidEmail && this.isValidPassword
-    },
+    }
   },
   methods: {
     ...mapActions(['user']),
@@ -81,10 +83,13 @@ export default {
         'https://login-opdracht.365werk.workers.dev/login',
         {
           method: 'POST',
-          body: JSON.stringify(this.form),
+          body: JSON.stringify(this.form)
         }
-      ).then(this.throwOrParse)
-      .catch(error => { this.error = error.message })
+      )
+        .then(this.throwOrParse)
+        .catch(error => {
+          this.error = error.message
+        })
       // if there was an error return early
       if (typeof response === 'undefined') return
       // response is has been successful - commit the user data and redirect to user page
@@ -92,20 +97,19 @@ export default {
       this.user(response)
       this.$router.push({ name: 'user' })
     }
-  },
+  }
 }
 </script>
 
-
 <style lang="scss" scoped>
-  .form {
-    max-width: 420px;
-    border: 1px gray solid;
-    padding: $l;
-    margin: 0 auto $l auto;
-  }
-  .heading {
-    text-align: center;
-    margin-bottom: $m;
-  }
+.form {
+  max-width: 420px;
+  border: 1px gray solid;
+  padding: $l;
+  margin: 0 auto $l auto;
+}
+.heading {
+  text-align: center;
+  margin-bottom: $m;
+}
 </style>

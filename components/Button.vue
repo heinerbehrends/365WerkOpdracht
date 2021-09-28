@@ -1,10 +1,6 @@
 <template>
-  <button 
-    type="submit" 
-    class="button" 
-    @click="$emit(event)"
-  >
-    {{text}}
+  <button type="submit" class="button" @click="$emit(event)">
+    {{ text }}
   </button>
 </template>
 
@@ -13,7 +9,7 @@ export default {
   props: {
     text: {
       type: String,
-      required: true,
+      required: true
     },
     event: {
       type: String,
