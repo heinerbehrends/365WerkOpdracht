@@ -4,59 +4,45 @@
     <p v-if="error === 401" class="error">
       De combinatie van e-mailadres en wachtwoord is niet geldig. 
     </p>
-    <label class="column">
-      <p class="label">E-mailadres </p>
-      <p v-if="!isValidEmail && isTouched.email" 
-        class="error-msg" 
-      >
-        Vul een geldig e-mail adres in.
-      </p>
-      <input
-        v-model="form.email"
-        class="input"
-        required
-        name="email" 
-        type="email"
-        aria-label="e-mailadres"
-        aria-required="true" 
-        @blur="isTouched.email = true"
-      >
-    </label>
-    <label class="column">
-      <p class="label">Wachtwoord</p>
-      <p 
-        v-if="!isValidPassword && isTouched.password" 
-        class="error-msg" 
-      >
-        Het wachtwoord moet minimaal 6 letters lang zijn.
-      </p>
-
-      <input
-        v-model="form.password"
-        class="input"
-        required
-        name="password" 
-        type="password"
-        aria-label="wachtwoord"
-        aria-required="true" 
-        @blur="isTouched.password = true"
-      >
-    </label>
-    <Button text="Log in" :disabled="isPending || !isValidForm" />
+    <Input 
+      v-model="form.email"
+      name="email"
+      type="email"
+      :is-valid="isValidEmail"
+      :is-touched="isTouched.email"
+      aria-label="E-mailadres"
+      aria-errormessage="Vul een geldig e-mail adres in."
+      @blurred="isTouched.email = true"
+    />
+    <Input
+      v-model="form.password"
+      name="password"
+      type="password"
+      :is-valid="isValidPassword"
+      :is-touched="isTouched.password"
+      aria-label="Wachtwoord"
+      aria-errormessage="Het wachtwoord moet minimaal 6 letters lang zijn."
+      @blurred="isTouched.password = true"
+    />
+    <Button 
+      text="Log in" 
+      :disabled="isPending || (!isValidForm && isTouched.email && isTouched.password)"
+    />
   </form>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import Button from './Button.vue'
+import Input from './Input.vue'
 
 export default {
-  components: { Button },
+  components: { Button, Input },
   data() { 
     return {
       form: {
-        email: null,
-        password: null,
+        email: "",
+        password: "",
       },
       isTouched: {
         email: false,
@@ -79,7 +65,7 @@ export default {
     },
     isValidForm() {
       return this.isValidEmail && this.isValidPassword
-    }
+    },
   },
   methods: {
     ...mapActions(['submitForm']),
@@ -89,35 +75,14 @@ export default {
 
 
 <style lang="scss" scoped>
-  .column {
-    display: flex;
-    flex-direction: column;
-  }
   .form {
     max-width: 420px;
     border: 1px gray solid;
     padding: $l;
-    margin: 0 auto;
+    margin: 0 auto $l auto;
   }
   .heading {
     text-align: center;
     margin-bottom: $m;
-  }
-  .label {
-    margin-bottom: $xxs;
-  }
-  .input {
-    padding: $xs $s;
-    margin-bottom: $l;
-  }
-  .error {
-    padding: $xs $s;
-    border: 1px solid $error-color;
-    background-color: #fcc9c9;
-    border-radius: $xs;
-  }
-  .error-msg {
-    color: $error-color;
-    margin-bottom: $xxs;
   }
 </style>
