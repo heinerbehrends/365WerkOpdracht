@@ -1,19 +1,16 @@
 <template>
   <div>
-    <img src="/logo.svg" alt="365werk logo" class="logo">
+    <Logo />
     <LoginForm/>
   </div>
 </template>
 
 <script>
-export default {}
+  import LoginForm from '../components/LoginForm.vue'
+  import Logo from '../components/Logo.vue'
+
+  export default {
+    components: { LoginForm, Logo }
+  }
 </script>
 
-<style lang="scss" scoped>
-  .logo {
-    width: 160px;
-    margin: 0 auto;
-    display: block;
-    padding: $l 0;
-  }
-</style>
