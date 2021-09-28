@@ -1,5 +1,11 @@
 <template>
-  <button type="submit" class="button">{{text}}</button>
+  <button 
+    type="submit" 
+    class="button" 
+    @click="$emit(event)"
+  >
+    {{text}}
+  </button>
 </template>
 
 <script>
@@ -8,6 +14,10 @@ export default {
     text: {
       type: String,
       required: true,
+    },
+    event: {
+      type: String,
+      default: ''
     }
   }
 }
