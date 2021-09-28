@@ -53,11 +53,6 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      content: this.value
-    }
-  },
   methods: {
     handleChange(event) {
       this.$emit('input', event.target.value)
