@@ -1,7 +1,7 @@
 <template>
   <form class="form" @submit.prevent="submitForm(form)">
     <h1 class="heading">Log in</h1>
-    <p v-if="error === 401" class="error">
+    <p v-if="error === '401'" class="error">
       De combinatie van e-mailadres en wachtwoord is niet geldig. 
     </p>
     <Input 
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import Button from './Button.vue'
 import Input from './Input.vue'
 
@@ -47,14 +47,12 @@ export default {
       isTouched: {
         email: false,
         password: false,
-      }
+      },
+      isPending: false,
+      error: null,
     }
   },
   computed: {
-    ...mapState({
-      isPending: state => state.isPending,
-      error: state => state.error,
-    }),
     isValidEmail() {
       const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return regex.test(this.form.email?.toLowerCase())
@@ -68,7 +66,32 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['submitForm']),
+    ...mapActions(['user']),
+    throwOrParse(response) {
+      this.isPending = false
+      if (response.status !== 200) {
+        this.error = response.status
+        throw new Error(response.status)
+      }
+      return response.json()
+    },
+    async submitForm() {
+      this.isPending = true
+      const response = await fetch(
+        'https://login-opdracht.365werk.workers.dev/login',
+        {
+          method: 'POST',
+          body: JSON.stringify(this.form),
+        }
+      ).then(this.throwOrParse)
+      .catch(error => { this.error = error.message })
+      // if there was an error return early
+      if (typeof response === 'undefined') return
+      // response is has been successful - commit the user data and redirect to user page
+      this.error = null
+      this.user(response)
+      this.$router.push({ name: 'user' })
+    }
   },
 }
 </script>
