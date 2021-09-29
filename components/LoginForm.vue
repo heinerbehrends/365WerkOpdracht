@@ -90,9 +90,9 @@ export default {
         .catch(error => {
           this.error = error.message
         })
-      // if there was an error return early
-      if (typeof response === 'undefined') return
-      // response is has been successful - commit the user data and redirect to user page
+      // error path ends here
+      if (this.error) return
+      // happy path: reset error, user action, redirect
       this.error = null
       this.user(response)
       this.$router.push({ name: 'user' })
